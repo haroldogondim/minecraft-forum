@@ -1,0 +1,39 @@
+Options +FollowSymLinks
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^habboz.com.br
+RewriteRule ^ http://www.habboz.com.br%{REQUEST_URI} [L,R=301]
+DirectoryIndex index.html DirectoryIndex index.php
+Options -Indexes
+
+ErrorDocument 404 /index.php?url=Error
+
+RewriteRule ^sitemap.xml?$ sitemap.php
+
+RewriteRule ^profile\/([a-zA-Z0-9\_\-]+)\/?$ index.php?url=profile&username=$1
+
+# Ajax
+RewriteRule ^ajax\/?$ lib/Ajax.php
+
+# Logout
+RewriteRule ^logout\/?$ index.php?logout=true 
+
+
+# Fórum
+RewriteRule ^topic\/category\/([0-9]+)(\/page\/([0-9]+))?\/?$ index.php?url=topics_category&cat_id=$1&page=$3
+RewriteRule ^topic\/([a-zA-Z0-9\_\-]+)\/([0-9]+)(\/page\/([0-9]+))?\/?$ index.php?url=topic&id=$2&slug=$1&page=$4
+RewriteRule ^topics\/user\/(.+)?$ index.php?url=topics_user&autor=$1
+RewriteRule ^topic\/new\/?$ index.php?url=topic_new
+RewriteRule ^topic\/saved\/?$ index.php?url=topics_saved
+RewriteRule ^topic\/saved\/delete\/([0-9]+)\/?$ index.php?url=topics_saved&delete=$1
+
+# Opcoes
+RewriteRule ^register\/?$ index.php?url=register
+RewriteRule ^login\/?$ index.php?url=login
+RewriteRule ^settings\/my\/?$ index.php?url=settings_my
+RewriteRule ^settings\/password\/?$ index.php?url=settings_password
+RewriteRule ^settings\/avatar\/?$ index.php?url=settings_avatar
+RewriteRule ^settings\/signature\/?$ index.php?url=settings_signature
+RewriteRule ^settings\/activate(\/([a-z0-9]+))?\/?$ index.php?url=settings_activate&code=$2
+
+
+RewriteRule ^store\/?$ index.php?url=store
